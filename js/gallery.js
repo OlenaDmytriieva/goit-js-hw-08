@@ -93,14 +93,9 @@ const galleryItems = document.querySelectorAll(".gallery-item");
 
 galleryLinks.forEach((link) => {
   link.addEventListener("click", function (e) {
-    if (e.target.tagName === "IMG") e.preventDefault();
-  });
-});
-
-galleryItems.forEach((item) => {
-  item.addEventListener("click", () => {
+    e.preventDefault();
     const image = images.find(
-      (img) => img.preview === item.querySelector("img").src
+      (img) => img.original === link.querySelector("img").dataset.source
     );
     showImageModal(image);
   });
