@@ -91,14 +91,14 @@ createGallery();
 const galleryLinks = document.querySelectorAll(".gallery-link");
 const galleryItems = document.querySelectorAll(".gallery-item");
 
-galleryLinks.forEach((link) => {
-  link.addEventListener("click", function (e) {
-    e.preventDefault();
-    const image = images.find(
-      (img) => img.original === link.querySelector("img").dataset.source
-    );
-    showImageModal(image);
-  });
+gallery.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (e.target === e.currentTarget) return;
+
+  const galleryEl = e.target.closest("img");
+  const imgSource = galleryEl.dataset.source;
+  const image = images.find((img) => img.original === imgSource);
+  showImageModal(image);
 });
 
 function showImageModal(image) {
@@ -112,10 +112,10 @@ function showImageModal(image) {
       </div>
   `,
     {
-      onShow: (image) => {
+      onShow: () => {
         document.addEventListener("keydown", onModalClose);
       },
-      onClose: (image) => {
+      onClose: () => {
         document.removeEventListener("keydown", onModalClose);
       },
     }
